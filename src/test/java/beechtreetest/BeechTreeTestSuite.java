@@ -11,6 +11,8 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
+import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.phantomjs.PhantomJSDriver;
 import org.openqa.selenium.phantomjs.PhantomJSDriverService;
 import org.openqa.selenium.remote.DesiredCapabilities;
@@ -29,13 +31,21 @@ public class BeechTreeTestSuite {
 	public void beforeTest() throws MalformedURLException {	
 
 		//PhantomJs Driver
-		System.setProperty("phantomjs.binary.path", "phantomjs");
-		String[] cli_args = new String[]{ "--ignore-ssl-errors=true" };
-		DesiredCapabilities caps = DesiredCapabilities.phantomjs();
-		caps.setCapability("takeScreenshot", "false");
-		caps.setCapability( PhantomJSDriverService.PHANTOMJS_CLI_ARGS, cli_args );
-		caps.setCapability( PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY, "phantomjs");
-		this.driver =  new PhantomJSDriver( caps );
+//		System.setProperty("phantomjs.binary.path", "phantomjs");
+//		String[] cli_args = new String[]{ "--ignore-ssl-errors=true" };
+//		DesiredCapabilities caps = DesiredCapabilities.phantomjs();
+//		caps.setCapability("takeScreenshot", "false");
+//		caps.setCapability( PhantomJSDriverService.PHANTOMJS_CLI_ARGS, cli_args );
+//		caps.setCapability( PhantomJSDriverService.PHANTOMJS_EXECUTABLE_PATH_PROPERTY, "phantomjs");
+//		driver =  new PhantomJSDriver( caps );
+		
+		//chrome remote Driver
+		System.setProperty("webdriver.chrome.driver", "chromedriver");
+		ChromeOptions options = new ChromeOptions();
+		options.setBinary("/usr/bin/google-chrome");
+		DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+		capabilities.setCapability(ChromeOptions.CAPABILITY, options);
+		driver = new ChromeDriver(capabilities);
 
 		driver.manage().window().maximize();
 		//driver.manage().window().setSize(new Dimension(1920,1080));
